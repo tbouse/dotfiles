@@ -13,3 +13,9 @@ else
 	echo "apt not installed, exiting.." 1>&2
 	exit 1
 fi
+
+$(apt install bind-tools)
+$(apt install nmap)
+$(apt install anaconda)
+
+
