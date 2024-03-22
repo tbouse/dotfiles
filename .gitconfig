@@ -1,0 +1,7 @@
+[user]
+	email = bouse.3@wright.edu
+	name = Trevor Bouse
+[init]
+	defaultBranch = main
+[core]
+	editor = vim
