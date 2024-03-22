@@ -79,17 +79,28 @@ awscli_install() {
 
 #install vundle
 vundle_get() {
-    mkdir -p $USERDIR/.vim/bundle
-    # Clone Vundle repository
-    git clone https://github.com/VundleVim/Vundle.vim.git $USERDIR/.vim/bundle/Vundle.vim
+	if [ ! -d ~/.vim ]; then
+    	mkdir -p ~/.vim/bundle
+    	# Clone Vundle repository
+    	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	fi
     
     # Create a backup of existing .vimrc file
-    if [ -f $USERDIR/.vimrc ]; then
-        mv $USERDIR/.vimrc $USERDIR/.vimrc.backup
+    if [ -f ~/.vimrc ]; then
+        mv ~/.vimrc ~/.vimrc.backup
     fi
     
-    ln -s $USERDIR/dotfiles/vimrc $USERDIR/.vimrc
+    
     vim +PluginInstall +qall
+	ln -sfb ~/dotfiles/vimrc ~/.vimrc
+}
+ssh_setup() {
+	if [ ! -d ~/.ssh ]; then
+		mkdir -p ~/.ssh
+		echo "creating .ssh directory"
+	fi
+	ln -sfb ~/dotfiles/authorized_keys ~/.ssh/authorized_keys
+	ln -sfb ~/dotfiles/ssh_config ~/.ssh/config
 }
 
 apt_install
@@ -98,13 +109,10 @@ awscli_install
 su $SUDO_USER 
 
 vundle_get
-echo ""
-echo ""
-echo "=-=-=-=-=-=USER DIR $USERDIR"
-# moving bashrc
-ln -sf ~/dotfiles/bashrc ~/.bashrc
+ssh_setup
 
-bash ~/dotfiles/vundle_install.sh
-echo ""
-echo ""
-echo "=-=-=-=-=-=USER DIR $USERDIR"
+# bashrc link
+ln -sfb ~/dotfiles/bashrc ~/.bashrc
+# gitconfig link
+ln -sfb ~/dotfiles/gitconfig ~/.gitconfig
+
