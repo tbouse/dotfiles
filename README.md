@@ -8,6 +8,10 @@ dotfiles collection for System Administration class
  4. Copy my authorized_keys and config to .ssh
  5. Install and customize vundle for vim plugins
 
+### To run
+
+    sudo bash install.sh
+
 ### Resources used
 chatGPT
 [mkijowski dotfiles](https://github.com/mkijowski/dotfiles/tree/master)
